@@ -10,7 +10,7 @@ public class Person {
         questions.chars().forEach(answers::add);
     }
 
-    public boolean anwered(Integer question) {
+    public boolean hasAnswered(Integer question) {
         return answers.contains(question);
     }
 }

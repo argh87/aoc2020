@@ -23,7 +23,7 @@ public class Group {
     long getAnswerdByEveryone() {
         return answers.stream()
                 .filter(q -> persons.stream()
-                        .allMatch(p -> p.anwered(q)))
+                        .allMatch(p -> p.hasAnswered(q)))
                 .count();
     }
 }

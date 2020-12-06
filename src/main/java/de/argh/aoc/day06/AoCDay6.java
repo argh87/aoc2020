@@ -10,20 +10,20 @@ public class AoCDay6 {
     public static void main(String[] args) {
 
         List<String> lines = FileUtil.getLines("input06.txt");
-        List<Group> groups = parsePassworts(lines);
+        List<Group> groups = parseGroups(lines);
 
         // part 1
         System.out.println(groups.stream()
                 .mapToLong(Group::getQuestionsSize)
                 .sum());
 
-        // part 1
+        // part 2
         System.out.println(groups.stream()
                 .mapToLong(Group::getAnswerdByEveryone)
                 .sum());
     }
 
-    private static List<Group> parsePassworts(List<String> lines) {
+    private static List<Group> parseGroups(List<String> lines) {
         List<Group> groups = new ArrayList<>();
         final Group[] group = {new Group()};
 

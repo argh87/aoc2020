@@ -4,13 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Person {
-    final Set<Integer> ansers = new HashSet<>();
+    final Set<Integer> answers = new HashSet<>();
 
     public Person(String questions) {
-        questions.chars().forEach(ansers::add);
+        questions.chars().forEach(answers::add);
     }
 
     public boolean anwered(Integer question) {
-        return ansers.contains(question);
+        return answers.contains(question);
     }
 }

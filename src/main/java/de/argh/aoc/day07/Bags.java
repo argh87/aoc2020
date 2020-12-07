@@ -1,16 +1,20 @@
 package de.argh.aoc.day07;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 class Bags {
 
     static Map<String, Bag> existing = new HashMap<>();
 
-    static void add(String bagColor, Bag bag) {
-        existing.put(bagColor, bag);
+    static void add(String color, Bag bag) {
+        existing.put(color, bag);
     }
 
-    static Set<String> getBagsContaining(String color) {
+    static long getBagsContaining(String color) {
         Set<String> colors = new HashSet<>();
         for (Map.Entry<String, Bag> entry : existing.entrySet()) {
             Bag value = entry.getValue();
@@ -18,7 +22,7 @@ class Bags {
                 collect(entry.getKey(), colors);
             }
         }
-        return colors;
+        return colors.size();
     }
 
     private static void collect(String color, Set<String> found) {
@@ -33,6 +37,19 @@ class Bags {
     }
 
     /**
+     * Which bag has the most individual bags inside?
+     *
+     * @return the winner
+     */
+    static long getHighestContent() {
+        return existing.keySet()
+                .stream()
+                .mapToLong(Bags::countingContent)
+                .max()
+                .orElse(0);
+    }
+
+    /**
      * calculates how many individual bags are required inside single colored bag
      *
      * @param color Color
@@ -40,27 +57,14 @@ class Bags {
      */
     static long countingContent(String color) {
         Bag bag = existing.get(color);
-        arrange(bag, new HashSet<>());
-
         return bag.getContainingBags() - 1;
 
     }
 
-    private static void arrange(Bag bag, Set<String> counted) {
-        Collection<Bag> containgColors = bag.getContaingColors();
-        containgColors
-                .forEach(b ->
-                        {
-                            counted.add(b.getColor());
-                            Bag listed = existing.get(b.getColor());
-                            if (!listed.isEmpty()) {
-                                listed.getContaingColors().forEach(l -> {
-                                    Bag r = existing.get(l.getColor());
-                                    b.add(r, l.getCount());
-                                    arrange(b, counted);
-                                });
-                            }
-                        }
-                );
+    static Set<Bag> getChildren(Bag bag) {
+        return bag.getContaingColors()
+                .stream()
+                .map(c -> new Bag(c.getCount(), existing.get(c.getColor())))
+                .collect(Collectors.toSet());
     }
 }

@@ -14,10 +14,6 @@ class Bag {
         this(1, bagColor, partition);
     }
 
-    private Bag(int count, String bagColor) {
-        this(count, bagColor, "no other bags.");
-    }
-
     private Bag(int count, String bagColor, String partition) {
         this.color = bagColor;
         this.count = count;
@@ -29,14 +25,15 @@ class Bag {
                 String[] parts = bag.split(" ");
                 int i = Integer.parseInt(parts[0]);
                 String c = parts[1] + " " + parts[2];
-                this.containing.put(c, new Bag(i, c));
+                this.containing.put(c, new Bag(i, c, "no other bags."));
             }
         }
     }
 
-    public Bag(Bag listed, long count) {
+    Bag(long count, Bag existing) {
         this.count = count;
-        color = listed.color;
+        color = existing.color;
+        containing.putAll(existing.containing);
     }
 
     long getCount() {
@@ -65,7 +62,7 @@ class Bag {
         }
 
         long sum = 0;
-        for (Bag value : containing.values()) {
+        for (Bag value : Bags.getChildren(this)) {
             sum += value.getContainingBags() * value.getCount();
         }
         return sum + 1;
@@ -86,10 +83,5 @@ class Bag {
                 ", color='" + color + '\'' +
                 ", containing=" + containing +
                 '}';
-    }
-
-    public void add(Bag listed, long count) {
-
-        containing.put(listed.getColor(), new Bag(listed, count));
     }
 }

@@ -16,10 +16,13 @@ public class AoCDay7 {
             Bags.add(bagColor, new Bag(bagColor, partitions[1]));
         });
 
-        //part 1
-        System.out.println(Bags.getBagsContaining("shiny gold").size());
+        // part 1
+        System.out.println(Bags.getBagsContaining("shiny gold"));
 
-        //part 2
+        // part 2
         System.out.println(Bags.countingContent("shiny gold"));
+
+        // test
+        System.out.println(Bags.getHighestContent());
     }
 }

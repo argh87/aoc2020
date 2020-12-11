@@ -1,6 +1,6 @@
 package de.argh.aoc.day08;
 
-public interface Command {
+interface Command {
 
     int execute(int index);
 

@@ -1,11 +1,11 @@
 package de.argh.aoc.day08;
 
-public class AccCommand implements Command {
+class AccCommand implements Command {
 
     private final long value;
     private int visited = 0;
 
-    public AccCommand(long value) {
+    AccCommand(long value) {
         this.value = value;
     }
 

@@ -1,11 +1,11 @@
 package de.argh.aoc.day08;
 
-public class NopCommand implements Command {
+class NopCommand implements Command {
 
     private final long value;
     private int visited = 0;
 
-    public NopCommand(long value) {
+    NopCommand(long value) {
         this.value = value;
     }
 

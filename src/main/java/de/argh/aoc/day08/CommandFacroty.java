@@ -1,6 +1,6 @@
 package de.argh.aoc.day08;
 
-public class CommandFacroty {
+class CommandFacroty {
     public static Command create(String line) {
         String[] s = line.split(" ");
         switch (s[0]) {

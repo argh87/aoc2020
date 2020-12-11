@@ -1,13 +1,13 @@
 package de.argh.aoc.day02;
 
-public class PwContainer {
+class PwContainer {
     final String policy;
     final int pos1;
     final int pos2;
     final char c;
     final String pw;
 
-    public PwContainer(String policy) {
+    PwContainer(String policy) {
         this.policy = policy;
         String[] policySplit = policy.split(": ");
         String[] posSplit = policySplit[0].split("-");

@@ -1,11 +1,11 @@
 package de.argh.aoc.day08;
 
-public class JmpCommand implements Command {
+class JmpCommand implements Command {
 
     private final long value;
     private int visited = 0;
 
-    public JmpCommand(long value) {
+    JmpCommand(long value) {
         this.value = value;
     }
 

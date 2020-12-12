@@ -126,29 +126,35 @@ class MovementFactory {
 
         @Override
         public void move(Position p) {
-            if (param == 90) {
-                p.facing = p.facing.left();
-            } else if (param == 180) {
-                p.facing = p.facing.reverse();
-            } else if (param == 270) {
-                p.facing = p.facing.right();
-            } else {
-                throw new IllegalArgumentException("param on left unkwon= " + param);
+            switch (param) {
+                case 90:
+                    p.facing = p.facing.left();
+                    break;
+                case 180:
+                    p.facing = p.facing.reverse();
+                    break;
+                case 270:
+                    p.facing = p.facing.right();
+                    break;
+                default:
+                    throw new IllegalArgumentException("param on left unkwon= " + param);
             }
         }
 
         @Override
         public void move(Position p, Waypoint w) {
-            move(p);
-
-            if (param == 90) {
-                w.left();
-            } else if (param == 180) {
-                w.reverse();
-            } else if (param == 270) {
-                w.right();
-            } else {
-                throw new IllegalArgumentException("param on left unkwon= " + param);
+            switch (param) {
+                case 90:
+                    w.left();
+                    break;
+                case 180:
+                    w.reverse();
+                    break;
+                case 270:
+                    w.right();
+                    break;
+                default:
+                    throw new IllegalArgumentException("param on left unkwon= " + param);
             }
         }
     }
@@ -160,29 +166,35 @@ class MovementFactory {
 
         @Override
         public void move(Position p) {
-            if (param == 90) {
-                p.facing = p.facing.right();
-            } else if (param == 180) {
-                p.facing = p.facing.reverse();
-            } else if (param == 270) {
-                p.facing = p.facing.left();
-            } else {
-                throw new IllegalArgumentException("param on right unkwon= " + param);
+            switch (param) {
+                case 90:
+                    p.facing = p.facing.right();
+                    break;
+                case 180:
+                    p.facing = p.facing.reverse();
+                    break;
+                case 270:
+                    p.facing = p.facing.left();
+                    break;
+                default:
+                    throw new IllegalArgumentException("param on right unkwon= " + param);
             }
         }
 
         @Override
         public void move(Position p, Waypoint w) {
-            move(p);
-
-            if (param == 90) {
-                w.right();
-            } else if (param == 180) {
-                w.reverse();
-            } else if (param == 270) {
-                w.left();
-            } else {
-                throw new IllegalArgumentException("param on right unkwon= " + param);
+            switch (param) {
+                case 90:
+                    w.right();
+                    break;
+                case 180:
+                    w.reverse();
+                    break;
+                case 270:
+                    w.left();
+                    break;
+                default:
+                    throw new IllegalArgumentException("param on right unkwon= " + param);
             }
         }
     }

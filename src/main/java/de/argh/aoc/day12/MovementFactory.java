@@ -42,11 +42,16 @@ class MovementFactory {
 
         @Override
         public void move(Position p) {
-            if (p.south > param) {
-                p.south -= param;
+            move(p, p.waypoint);
+        }
+
+        @Override
+        public void move(Position p, Waypoint w) {
+            if (w.south > param) {
+                w.south -= param;
             } else {
-                p.north += param - p.south;
-                p.south = 0;
+                w.north += param - w.south;
+                w.south = 0;
             }
         }
     }
@@ -58,11 +63,16 @@ class MovementFactory {
 
         @Override
         public void move(Position p) {
-            if (p.north > param) {
-                p.north -= param;
+            move(p, p.waypoint);
+        }
+
+        @Override
+        public void move(Position p, Waypoint w) {
+            if (w.north > param) {
+                w.north -= param;
             } else {
-                p.south += param - p.north;
-                p.north = 0;
+                w.south += param - w.north;
+                w.north = 0;
             }
         }
     }
@@ -74,11 +84,16 @@ class MovementFactory {
 
         @Override
         public void move(Position p) {
-            if (p.west > param) {
-                p.west -= param;
+            move(p, p.waypoint);
+        }
+
+        @Override
+        public void move(Position p, Waypoint w) {
+            if (w.west > param) {
+                w.west -= param;
             } else {
-                p.east += param - p.west;
-                p.west = 0;
+                w.east += param - w.west;
+                w.west = 0;
             }
         }
     }
@@ -90,11 +105,16 @@ class MovementFactory {
 
         @Override
         public void move(Position p) {
-            if (p.east > param) {
-                p.east -= param;
+            move(p, p.waypoint);
+        }
+
+        @Override
+        public void move(Position p, Waypoint w) {
+            if (w.east > param) {
+                w.east -= param;
             } else {
-                p.west += param - p.east;
-                p.east = 0;
+                w.west += param - w.east;
+                w.east = 0;
             }
         }
     }
@@ -116,6 +136,21 @@ class MovementFactory {
                 throw new IllegalArgumentException("param on left unkwon= " + param);
             }
         }
+
+        @Override
+        public void move(Position p, Waypoint w) {
+            move(p);
+
+            if (param == 90) {
+                w.left();
+            } else if (param == 180) {
+                w.reverse();
+            } else if (param == 270) {
+                w.right();
+            } else {
+                throw new IllegalArgumentException("param on left unkwon= " + param);
+            }
+        }
     }
 
     private static class Right extends AbstractMovement {
@@ -131,6 +166,21 @@ class MovementFactory {
                 p.facing = p.facing.reverse();
             } else if (param == 270) {
                 p.facing = p.facing.left();
+            } else {
+                throw new IllegalArgumentException("param on right unkwon= " + param);
+            }
+        }
+
+        @Override
+        public void move(Position p, Waypoint w) {
+            move(p);
+
+            if (param == 90) {
+                w.right();
+            } else if (param == 180) {
+                w.reverse();
+            } else if (param == 270) {
+                w.left();
             } else {
                 throw new IllegalArgumentException("param on right unkwon= " + param);
             }
@@ -159,6 +209,26 @@ class MovementFactory {
                     break;
                 default:
                     throw new RuntimeException("...");
+            }
+        }
+
+        @Override
+        public void move(Position p, Waypoint w) {
+            int goNorth = param * w.north;
+            if (goNorth > 0) {
+                new North(goNorth).move(p);
+            }
+            int goEast = param * w.east;
+            if (goEast > 0) {
+                new East(goEast).move(p);
+            }
+            int goWest = param * w.west;
+            if (goWest > 0) {
+                new West(goWest).move(p);
+            }
+            int goSouth = param * w.south;
+            if (goSouth > 0) {
+                new South(goSouth).move(p);
             }
         }
     }

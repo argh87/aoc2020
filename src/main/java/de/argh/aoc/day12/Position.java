@@ -2,13 +2,15 @@ package de.argh.aoc.day12;
 
 class Position {
 
-    Direction facing = Direction.EAST;
-    int south = 0;
-    int north = 0;
-    int west = 0;
-    int east = 0;
+    Direction facing;
+    Waypoint waypoint;
+
+    Position(Direction facing) {
+        this.facing = facing;
+        this.waypoint = new Waypoint(0, 0, 0, 0);
+    }
 
     int getManhattenDistance() {
-        return south + north + west + east;
+        return waypoint.getManhattenDistance();
     }
 }

@@ -3,7 +3,7 @@ package de.argh.aoc.day12;
 enum Direction {
     NORTH, EAST, SOUTH, WEST;
 
-    public Direction left() {
+    Direction left() {
         switch (this) {
             case NORTH:
                 return WEST;
@@ -18,7 +18,7 @@ enum Direction {
         }
     }
 
-    public Direction right() {
+    Direction right() {
         switch (this) {
             case NORTH:
                 return EAST;
@@ -33,7 +33,7 @@ enum Direction {
         }
     }
 
-    public Direction reverse() {
+    Direction reverse() {
         switch (this) {
             case NORTH:
                 return SOUTH;

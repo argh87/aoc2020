@@ -13,5 +13,8 @@ public class AoCDay12 {
 
         System.out.println(ship.part_1()
                 .getManhattenDistance());
+
+        System.out.println(ship.part_2()
+                .getManhattenDistance());
     }
 }

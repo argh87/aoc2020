@@ -38,46 +38,38 @@ class Seats {
     void part_1() {
         initSet();
         Collection<Seat> values = seats.values();
-        values.forEach(Seat::init_p1);
+        values.forEach(Seat::findNextAdjacent);
 
-        long occupied = switchStates_p1(values);
-        boolean running = true;
+        long occupied = switchStates(values, 4);
 
-        while (running) {
-            long currentOccupied = switchStates_p1(values);
-            running = !(occupied == currentOccupied);
-            occupied = currentOccupied;
+        while (isAnySwitched(values)) {
+            occupied = switchStates(values, 4);
         }
 
         System.out.println(occupied);
-    }
-
-    private long switchStates_p1(Collection<Seat> values) {
-        values.forEach(seat -> seat.validateState(4));
-        values.forEach(Seat::switchState);
-
-        return values.stream()
-                .filter(s -> s.checkState.equals(State.OCCUPIED))
-                .count();
     }
 
     void part_2() {
         initSet();
         Collection<Seat> values = seats.values();
-        values.forEach(Seat::init_p2);
+        values.forEach(Seat::findNearestAdjacents);
 
-        long occupied = switchStates_p2(values);
+        long occupied = switchStates(values, 5);
 
-        while (values.stream()
-                .anyMatch(s -> s.switched)) {
-            occupied = switchStates_p2(values);
+        while (isAnySwitched(values)) {
+            occupied = switchStates(values, 5);
         }
 
         System.out.println(occupied);
     }
 
-    private long switchStates_p2(Collection<Seat> values) {
-        values.forEach(seat -> seat.validateState(5));
+    private boolean isAnySwitched(Collection<Seat> values) {
+        return values.stream()
+                .anyMatch(s -> s.switched);
+    }
+
+    private long switchStates(Collection<Seat> values, int maxOccupied) {
+        values.forEach(seat -> seat.validateState(maxOccupied));
         values.forEach(Seat::switchState);
 
         return values.stream()
@@ -129,7 +121,7 @@ class Seats {
             adjacents.add(seat);
         }
 
-        void init_p1() {
+        void findNextAdjacent() {
             adjacents.clear();
             if (p.y > 0) {
                 addAdjacent(seats.get(new Point(p.x, p.y - 1))); // upper
@@ -158,7 +150,7 @@ class Seats {
             }
         }
 
-        void init_p2() {
+        void findNearestAdjacents() {
             adjacents.clear();
             getUpperLeft();
             getUpper();
@@ -273,10 +265,6 @@ class Seats {
         void switchState() {
             switched = !checkState.equals(currentState);
             checkState = currentState;
-        }
-
-        boolean switched() {
-            return switched;
         }
 
         @Override

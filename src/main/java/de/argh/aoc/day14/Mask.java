@@ -69,18 +69,7 @@ class Mask {
     }
 
     private List<String> getAllPossibleIndexes(String mask, int index) {
-        if (index == 0) {
-            if (mask.charAt(index) == 'X') {
-                List<String> masks = new ArrayList<>();
-                char[] maskChars = mask.toCharArray();
-
-                maskChars[index] = '0';
-                masks.add(String.valueOf(maskChars));
-                maskChars[index] = '1';
-                masks.add(String.valueOf(maskChars));
-                return masks;
-            }
-
+        if (index == -1) {
             return Collections.singletonList(mask);
         }
 

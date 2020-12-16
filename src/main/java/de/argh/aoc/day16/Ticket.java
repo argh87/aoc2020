@@ -14,9 +14,10 @@ class Ticket {
         Arrays.stream(values).forEach(v -> this.values.add(Integer.parseInt(v)));
     }
 
-    List<Integer> getValuesNotApplyingRules(List<Rule> rules) {
+    List<Integer> getValuesNotApplyingRules(List<Field> fields) {
         return values.stream()
-                .filter(v -> rules.stream().noneMatch(r -> r.contains(v)))
+                .filter(v -> fields.stream()
+                        .noneMatch(r -> r.contains(v)))
                 .collect(Collectors.toList());
     }
 

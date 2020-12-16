@@ -9,7 +9,6 @@ class Turn {
 
     final Long id;
     final Long spoken;
-    final Turn last;
 
     Turn(Long spoken) {
         this(1L, spoken, null);
@@ -18,7 +17,6 @@ class Turn {
     Turn(Long id, Long spoken, Turn last) {
         this.id = id;
         this.spoken = spoken;
-        this.last = last;
         if (last != null) {
             cache.put(last.spoken, last);
         }

@@ -22,6 +22,10 @@ class Cube {
         return !this.equals(other) && pos.isNext(other.pos);
     }
 
+    private boolean isHyperNeighbor(Cube other) {
+        return !this.equals(other) && pos.isHyperNext(other.pos);
+    }
+
     void prepareActive() {
         int amount = activeNeighbors();
         if (active) {
@@ -55,6 +59,15 @@ class Cube {
         }
         dimension.stream()
                 .filter(this::isNeighbor)
+                .forEach(dp -> neighbors.add(dp));
+    }
+
+    void findHyperNeighbors(Collection<Cube> dimension) {
+        if (neighbors.size() == 80) {
+            return;
+        }
+        dimension.stream()
+                .filter(this::isHyperNeighbor)
                 .forEach(dp -> neighbors.add(dp));
     }
 

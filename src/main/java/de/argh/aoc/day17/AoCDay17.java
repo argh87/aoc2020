@@ -9,7 +9,9 @@ public class AoCDay17 {
         List<String> lines = FileUtil.getLines("input17.txt");
 
         Grid grid = new Grid(lines);
-
         grid.part_1();
+
+        HyperGrid hyperGrid = new HyperGrid(lines);
+        hyperGrid.part_2();
     }
 }

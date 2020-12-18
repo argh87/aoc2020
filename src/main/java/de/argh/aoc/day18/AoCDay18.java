@@ -17,15 +17,17 @@ public class AoCDay18 {
     }
 
     private static void part_1(List<String> lines) {
-        Operator add = new Operator("+", 0);
-        Operator mul = new Operator("*", 0);
+        Operator add = new Operator("+", 0, Long::sum);
+        Operator mul = new Operator("*", 0, (d1, d2) -> d1 * d2);
+
         ExpressionParser equalPrecendence = new ExpressionParser(Arrays.asList(add, mul));
         parseInput(lines, equalPrecendence);
     }
 
     private static void part_2(List<String> lines) {
-        Operator add = new Operator("+", 1);
-        Operator mul = new Operator("*", 0);
+        Operator add = new Operator("+", 1, Long::sum);
+        Operator mul = new Operator("*", 0, (d1, d2) -> d1 * d2);
+
         ExpressionParser reversePrecendence = new ExpressionParser(Arrays.asList(add, mul));
         parseInput(lines, reversePrecendence);
     }

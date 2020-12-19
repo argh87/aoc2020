@@ -6,6 +6,7 @@ public class AocCDay19 {
 
     public static void main(String[] args) {
         Message message = new Message(FileUtil.getLines("input19.txt"));
-        message.parse();
+        message.part_1();
+        message.part_2();
     }
 }

@@ -9,8 +9,7 @@ class Rule {
 
     private final int id;
     private final String sub;
-    private final List<Rule> left = new ArrayList<>();
-    private final List<Rule> right = new ArrayList<>();
+    private final List<List<Rule>> ors = new ArrayList<>();
     private final boolean isChar;
     private final char c;
 
@@ -33,16 +32,22 @@ class Rule {
 
         if (sub.contains("|")) {
             String[] rs = sub.split(" \\| ");
+            List<Rule> left = new ArrayList<>();
             for (String num : rs[0].split(" ")) {
                 left.add(rules.get(Integer.valueOf(num)));
             }
+            ors.add(left);
+            List<Rule> right = new ArrayList<>();
             for (String num : rs[1].split(" ")) {
                 right.add(rules.get(Integer.valueOf(num)));
             }
+            ors.add(right);
         } else {
+            List<Rule> left = new ArrayList<>();
             for (String num : sub.split(" ")) {
                 left.add(rules.get(Integer.valueOf(num)));
             }
+            ors.add(left);
         }
     }
 
@@ -52,24 +57,35 @@ class Rule {
         }
 
         if (id == 0) {
-            String all = this.left.stream()
+            String all = ors.get(0)
+                    .stream()
                     .map(Rule::getRegex)
                     .collect(Collectors.joining());
             return "^" + all + "+$";
         }
 
-        String left = this.left.stream()
-                .map(Rule::getRegex)
-                .collect(Collectors.joining());
+        if (id == 11 && !Message.PART1) {
+            String inner = ors.stream()
+                    .map(l -> l.stream()
+                            .map(Rule::getRegex)
+                            // referencing group e
+                            .collect(Collectors.joining("\\k<e>*")))
+                    .collect(Collectors.joining());
 
-        if (right.isEmpty()) {
-            return "(" + left + ")";
+            // Naming group e
+            return "(?<e>" + inner + ")+";
         }
 
-        String right = this.right.stream()
-                .map(Rule::getRegex)
-                .collect(Collectors.joining());
+        String inner = ors.stream()
+                .map(l -> l.stream()
+                        .map(Rule::getRegex)
+                        .collect(Collectors.joining()))
+                .collect(Collectors.joining("|"));
 
-        return "(" + left + "|" + right + ")";
+        if (id == 8 && !Message.PART1) {
+            // Just repeat with plus
+            return "(?:" + inner + ")+";
+        }
+        return "(" + inner + ")";
     }
 }

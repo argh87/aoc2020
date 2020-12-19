@@ -8,6 +8,8 @@ import java.util.Map;
 
 class Message {
 
+    static boolean PART1 = true;
+
     private final Map<Integer, Rule> rules = new HashMap<>();
     private final List<String> messages = new ArrayList<>();
 
@@ -29,7 +31,18 @@ class Message {
         }
     }
 
-    void parse() {
+    void part_1() {
+        PART1 = true;
+        doit();
+    }
+
+    public void part_2() {
+        PART1 = false;
+        doit();
+
+    }
+
+    private void doit() {
         Rule rule = rules.get(0);
         String regex = rule.getRegex();
         System.out.println(messages.stream()

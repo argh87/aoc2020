@@ -2,6 +2,7 @@ package de.argh.aoc.day22;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 class Player {
 
@@ -42,5 +43,27 @@ class Player {
         }
 
         return sum;
+    }
+
+    Long deckSize() {
+        return (long) cards.size() + 1;
+    }
+
+    Player copy(Long drawOne) {
+        final Player player = new Player(name);
+        for (int i = 0; i < drawOne; i++) {
+            player.cards.add(cards.get(i));
+        }
+        return player;
+    }
+
+    boolean is(Player winner) {
+        return name.equals(winner.name);
+    }
+
+    String getDeckAsString() {
+        return cards.stream()
+                .map(s -> String.valueOf(s.longValue()))
+                .collect(Collectors.joining(","));
     }
 }
